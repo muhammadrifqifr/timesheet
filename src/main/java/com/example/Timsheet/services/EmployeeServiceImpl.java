@@ -1,6 +1,8 @@
 package com.example.Timsheet.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeDTO> getEmployeeJoinDesignationDTO() {
-        return employeeRepository.getEmployeeJoinDesignationDTO();
+        List<Employee> employee = employeeRepository.getEmployeeJoinDesignation();
+        return employee.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public EmployeeDTO convertToDto(Employee employee){
+        return new EmployeeDTO(employee.getId(),
+            employee.getName(),
+            employee.getEmail(),
+            employee.getNik(),
+            employee.getDesignation().getId(),
+            employee.getDesignation().getName(),
+            employee.getDesignation().getDepartment().getId(),
+            employee.getDesignation().getDepartment().getName(),
+            employee.getDesignation().getDepartment().getDivision().getId(), 
+            employee.getDesignation().getDepartment().getDivision().getName());
     }
     
 }
