@@ -3,7 +3,6 @@ package com.example.Timsheet.models;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -33,14 +32,11 @@ public class EmployeeTimesheet {
     @Column(name = "end_hour")
     private String End_Hour;
 
-    @Column(name = "presents")
-    private String Presents;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee Employee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "timesheet_id")
     private Timesheet Timesheet;
 
@@ -75,12 +71,7 @@ public class EmployeeTimesheet {
     public void setEnd_Hour(String end_Hour) {
         End_Hour = end_Hour;
     }
-    public String getPresents() {
-        return Presents;
-    }
-    public void setPresents(String presents) {
-        Presents = presents;
-    }
+
     public Employee getEmployee() {
         return Employee;
     }
