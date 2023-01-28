@@ -14,13 +14,21 @@ import com.example.Timsheet.models.EmployeeTimesheet;
 @RestController
 @RequestMapping("/api/emptime")
 public class EmployeeTimesheetRestController {
+    private EmployeeTimesheetService employeeTimesheetService;
 
     @Autowired
-    private EmployeeTimesheetService employeeTimesheetService;
+    public EmployeeTimesheetRestController(EmployeeTimesheetService employeeTimesheetService){
+        this.employeeTimesheetService = employeeTimesheetService;
+    }
 
     @GetMapping
     public List<EmployeeTimesheet> getAll(){
-        return employeeTimesheetService.getAll();
+        return employeeTimesheetService.getEmployeeTimesheet();
+    }
+
+    @GetMapping("/emptmdto")
+    public List<EmployeeTimesheetDTO> getAllDTO(){
+        return employeeTimesheetService.getEmployeeTimesheetDTO();
     }
 
     @PostMapping("/insert")
