@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Timsheet.DTO.EmployeeDTO;
 import com.example.Timsheet.models.Employee;
 import com.example.Timsheet.services.EmployeeService;
 
@@ -27,6 +29,11 @@ public class EmployeeRestontroller {
     @GetMapping("/coba")
     public List<Employee> getAll(){
         return employeeService.getEmployeeJoinDesignation();
+    }
+
+    @GetMapping("/dto")
+    public List<EmployeeDTO> getAllDTO(){
+        return employeeService.getEmployeeJoinDesignationDTO();
     }
 
     @GetMapping("/{id}")
