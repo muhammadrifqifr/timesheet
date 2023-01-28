@@ -3,15 +3,30 @@ package com.example.Timsheet.DTO;
 import java.util.Date;
 
 public class EmployeeTimesheetDTO {
+    public EmployeeTimesheetDTO(Integer id, Date work_Date, String activity, String start_Hour, String end_Hour, Integer employee, Integer timesheet) {
+        Id = id;
+        Work_Date = work_Date;
+        Activity = activity;
+        Start_Hour = start_Hour;
+        End_Hour = end_Hour;
+        Employee = employee;
+        Timesheet = timesheet;
+    }
+
     private Integer Id;
     private Date Work_Date;
     private String Activity;
     private String Start_Hour;
     private String End_Hour;
-    private String Presents;
     private Integer Employee;
-    
+    private Integer Timesheet;
 
+    public Integer getTimesheet() {
+        return Timesheet;
+    }
+    public void setTimesheet(Integer timesheet) {
+        Timesheet = timesheet;
+    }
     public Integer getId() {
         return Id;
     }
@@ -42,19 +57,12 @@ public class EmployeeTimesheetDTO {
     public void setEnd_Hour(String end_Hour) {
         End_Hour = end_Hour;
     }
-    public String getPresents() {
-        return Presents;
-    }
-    public void setPresents(String presents) {
-        Presents = presents;
-    }
     public Integer getEmployee() {
         return Employee;
     }
     public void setEmployee(Integer employee) {
         Employee = employee;
     }
-
 }
 
 
