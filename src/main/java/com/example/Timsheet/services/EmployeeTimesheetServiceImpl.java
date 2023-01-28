@@ -1,6 +1,8 @@
 package com.example.Timsheet.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Timsheet.DTO.EmployeeTimesheetDTO;
@@ -38,7 +40,6 @@ public class EmployeeTimesheetServiceImpl implements EmployeeTimesheetService{
         employeeTimesheet.setActivity(dto.getActivity());
         employeeTimesheet.setStart_Hour(dto.getStart_Hour());
         employeeTimesheet.setEnd_Hour(dto.getEnd_Hour());
-        employeeTimesheet.setPresents(dto.getPresents());
         employee.setId(dto.getEmployee());
         employeeTimesheet.setEmployee(employee);
         timesheet.setId(timesheetService.getByIdTs());
@@ -52,4 +53,26 @@ public class EmployeeTimesheetServiceImpl implements EmployeeTimesheetService{
         employeeTimesheetRepository.deleteById(id);
         return !employeeTimesheetRepository.findById(id).isPresent();
     }
+
+    @Override
+    public List<EmployeeTimesheet> getEmployeeTimesheet() {
+        return employeeTimesheetRepository.getEmployeeTimesheet();
+    }
+
+    @Override
+    public List<EmployeeTimesheetDTO> getEmployeeTimesheetDTO() {
+        List<EmployeeTimesheet> employeeTimesheets = employeeTimesheetRepository.getEmployeeTimesheet();
+        return employeeTimesheets.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public EmployeeTimesheetDTO convertToDto(EmployeeTimesheet employeeTimesheet){
+        return new EmployeeTimesheetDTO(employeeTimesheet.getId(), 
+            employeeTimesheet.getWork_Date(), 
+            employeeTimesheet.getActivity(), 
+            employeeTimesheet.getStart_Hour(), 
+            employeeTimesheet.getEnd_Hour(), 
+            employeeTimesheet.getEmployee().getId(), 
+            employeeTimesheet.getTimesheet().getId());
+    }
+
 }
