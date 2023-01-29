@@ -7,6 +7,8 @@ import com.example.Timsheet.models.Status;
 
 public interface StatusService {
     public List<Status> getAll();
+    public List<Status> getAllStatus();
+    public List<StatusDTO> getAllStatusDTO();
     public Status getById(Integer id);
     public boolean save(StatusDTO dto);
     public boolean delete(Integer id);

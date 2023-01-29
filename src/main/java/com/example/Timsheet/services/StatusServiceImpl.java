@@ -1,6 +1,8 @@
 package com.example.Timsheet.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Timsheet.DTO.StatusDTO;
@@ -30,9 +32,9 @@ public class StatusServiceImpl implements StatusService{
         Employee employee = new Employee();
         Timesheet timesheet = new Timesheet(); 
         Status status = new Status();
-        employee.setId(dto.getEmployee());
+        employee.setId(dto.getEmployee_id());
         status.setEmployee(employee);
-        timesheet.setId(dto.getTimesheet());
+        timesheet.setId(dto.getTimesheet_id());
         status.setTimesheet(timesheet);
         status.setName(dto.getName());
         status.setDate(dto.getDate());
@@ -73,5 +75,24 @@ public class StatusServiceImpl implements StatusService{
         // di save
         statusRepository.save(status);
         return true;
+    }
+
+    @Override
+    public List<Status> getAllStatus() {
+        return statusRepository.getAllStatus();
+    }
+
+    @Override
+    public List<StatusDTO> getAllStatusDTO() {
+        List<Status> status = statusRepository.getAllStatus();
+        return status.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public StatusDTO convertToDto(Status status){
+        return new StatusDTO(status.getId(),
+             status.getName(),
+              status.getDate(),
+               status.getEmployee().getId(),
+                status.getTimesheet().getId());
     }
 }
