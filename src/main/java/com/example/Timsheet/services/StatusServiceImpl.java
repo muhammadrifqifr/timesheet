@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.Timsheet.DTO.RequestToPmDTO;
 import com.example.Timsheet.DTO.StatusDTO;
 import com.example.Timsheet.models.Employee;
 import com.example.Timsheet.models.Status;
@@ -95,4 +97,25 @@ public class StatusServiceImpl implements StatusService{
                status.getEmployee().getId(),
                 status.getTimesheet().getId());
     }
+
+    @Override
+    public List<Status> getStatusByProjectManager() {
+        return statusRepository.getStatusByProjectManager();
+    }
+
+    @Override
+    public List<RequestToPmDTO> getStatusByProjectManagerDTO() {
+        List<Status> status = statusRepository.getStatusByProjectManager();
+        return status.stream().map(this::convertToDtoPm).collect(Collectors.toList());
+    }
+
+    public RequestToPmDTO convertToDtoPm(Status status){
+        return new RequestToPmDTO(status.getId(),
+         status.getTimesheet().getProjectName(),
+          status.getName(),
+           status.getEmployee().getName(),
+            status.getTimesheet().getRemarks(),
+             status.getDate());
+    }
+  
 }
