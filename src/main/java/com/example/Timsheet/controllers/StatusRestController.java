@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Timsheet.DTO.RequestToPmDTO;
 import com.example.Timsheet.DTO.StatusDTO;
 import com.example.Timsheet.models.Status;
 import com.example.Timsheet.services.StatusService;
@@ -27,6 +29,12 @@ public class StatusRestController {
     @GetMapping()
     public List<Status> getAll(){
         return statusService.getAll();
+    }
+
+
+    @GetMapping("/RequestPM")
+    public List<RequestToPmDTO> getStatusByProjectManager(){
+        return statusService.getStatusByProjectManagerDTO();
     }
 
     @GetMapping("/statusDTO")
